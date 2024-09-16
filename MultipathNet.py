@@ -37,7 +37,7 @@ class Net(nn.Module):
         self.name = 'Multi-path Net'
         self.device = torch.device("cpu")
         self.bn = nn.BatchNorm2d(in_channels)
-        self.b1 = ConvBlock(in_channels, 8, kernel_size=(5,17), stride=(4,16))
+        self.b1 = ConvBlock(in_channels, 8, kernel_size=(5,5), stride=(4,4))
         
         self.mp = MPBlock(8)
         
@@ -48,8 +48,6 @@ class Net(nn.Module):
         
 
     def forward(self, x):
-        #x = x.to(self.device).type(torch.DoubleTensor)
-        f0 = self.bn(x)
         f1 = self.b1(x)
 
         f5 = self.mp(f1)
